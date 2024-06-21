@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,14 +35,14 @@ public class LoginResController {
 	@Autowired
 	private UserService userService;
 
-	// @Autowired
-	// private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/authen")
 	public ResponseEntity<?> login(@Valid @RequestBody AuthRequest req) throws Exception {
 		// System.out.println("user: " + req.getUsername() + ", password: " +
 		// req.getPassword());
-		// System.out.println("password: " + passwordEncoder.encode("test"));
+		System.out.println("password: " + passwordEncoder.encode("test"));
 		try {
 			authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));

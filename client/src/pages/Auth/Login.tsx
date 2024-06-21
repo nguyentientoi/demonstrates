@@ -1,27 +1,32 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Form, Input, Row } from "reactstrap";
 import { APP_URL } from "../../common/config";
+
 const Login = () => { 
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => { 
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
-    const result = await fetch(APP_URL + '/authen', {
+    await fetch(APP_URL + '/authen', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        alert('User name or password not correct!');
+      }
+      
+    }).then((resJson: any) => {
+    //  console.log('json: ', resJson);
+      localStorage.setItem('auth-token', resJson.jwt);
+      location.href = '/';
+    }).catch(() => {
+      alert('User name or password not correct!');
     });
-
-    const json = await result.json(); 
-    if (json && undefined != json.jwt) {
-      // console.log('json: ', json.jwt);
-      localStorage.setItem('auth-token', json.jwt);
-      location.href = APP_URL + '/';
-    } else { 
-      alert('Login failed!');
-    }
   }
 
   return (<>

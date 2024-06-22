@@ -1,11 +1,3 @@
-/**
-  * Copyright (c) 20021-2023
-  * All rights reserved.
-  *
-  * All copying and conversion without permission
-  * Our suggestions are a violation of copyright and property rights laws
-  * wisdom
-  */
 package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
